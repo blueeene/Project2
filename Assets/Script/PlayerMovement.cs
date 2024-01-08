@@ -15,10 +15,12 @@ public class PlayerMovement : MonoBehaviour
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeet;
     float gravityScaleAtStart;
+    bool isAlive = true;
 
 
     void Start()
     {
+        if (!isAlive) { return; }
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
@@ -32,11 +34,13 @@ public class PlayerMovement : MonoBehaviour
         Run();
         FlipSprite();
         ClimbLadder();
+        Die();
     }
 
     //an nut de di chuyen nhan vat
     void OnMove(InputValue value)
     {
+        if (!isAlive) { return; }
         moveInput = value.Get<Vector2>();
         Debug.Log(moveInput);
     }
@@ -54,7 +58,8 @@ public class PlayerMovement : MonoBehaviour
     //nhan nut de nhan vat nhay len
     void OnJump(InputValue value)
     {
-        if(!myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")) )
+        if (!isAlive) { return; }
+        if (!myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")) )
         {
             return;
         }
@@ -65,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    //lat nhan vat
     void FlipSprite()
     {
         bool playerHasHorizotalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
@@ -75,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //animation leo thang
     void ClimbLadder()
     {
         if (!myFeet.IsTouchingLayers(LayerMask.GetMask("Climbing")))
@@ -90,5 +97,14 @@ public class PlayerMovement : MonoBehaviour
 
         bool playerVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon;
         myAnimator.SetBool("isClimbing", playerVerticalSpeed);
+    }
+
+    //trang thai chet
+    void Die()
+    {
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        {
+            isAlive = false;
+        }
     }
 }
