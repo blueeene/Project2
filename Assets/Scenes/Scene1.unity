@@ -8154,9 +8154,9 @@ GameObject:
   - component: {fileID: 710655742}
   - component: {fileID: 710655741}
   - component: {fileID: 710655740}
+  - component: {fileID: 710655745}
   - component: {fileID: 710655739}
   - component: {fileID: 710655744}
-  - component: {fileID: 710655745}
   m_Layer: 11
   m_Name: Slime (Enemy)
   m_TagString: Untagged
@@ -8308,7 +8308,7 @@ Transform:
   m_GameObject: {fileID: 710655738}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.227, y: -2.427, z: 0}
+  m_LocalPosition: {x: 12.227, y: -2.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8356,7 +8356,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.2906356, y: -0.33247143}
@@ -31167,6 +31167,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4307898714226588495, guid: 09de72971674fa743944efbc9fb64633, type: 3}
+      propertyPath: m_Size.y
+      value: 0.8768177
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307898714226588495, guid: 09de72971674fa743944efbc9fb64633, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.067938566
+      objectReference: {fileID: 0}
     - target: {fileID: 5999963337740014373, guid: 09de72971674fa743944efbc9fb64633, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.88
@@ -31211,6 +31219,14 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 5edd30ffaa2421041a7dd1b8c149e400, type: 2}
+    - target: {fileID: 8010379696519187549, guid: 09de72971674fa743944efbc9fb64633, type: 3}
+      propertyPath: deathKick.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010379696519187549, guid: 09de72971674fa743944efbc9fb64633, type: 3}
+      propertyPath: deathKick.y
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
