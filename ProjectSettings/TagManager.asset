@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Coin
   - Heart
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - Background
   - Bouncing
   - Enemies
-  - 
-  - 
+  - Hazards
+  - Bullets
   - 
   - 
   - 
@@ -55,7 +56,10 @@ TagManager:
   - name: Climbing
     uniqueID: 446508979
     locked: 0
-  - name: Enemy
+  - name: Hazards
+    uniqueID: 557948625
+    locked: 0
+  - name: Enemies
     uniqueID: 1700155975
     locked: 0
   - name: Player

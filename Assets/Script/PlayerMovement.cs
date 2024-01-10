@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.TerrainTools;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float climbSpeed = 3f;
     [SerializeField] Vector2 deathKick = new Vector2 (10f, 10f);
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform gun;
 
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
@@ -38,6 +41,15 @@ public class PlayerMovement : MonoBehaviour
         Die();
     }
 
+    //nhap chuot trai de ban
+    void OnFire(InputValue value)
+    {
+        if (!isAlive) { return; }
+        Instantiate(bullet, gun.position, transform.rotation);  
+    }
+
+    
+    
     //an nut de di chuyen nhan vat
     void OnMove(InputValue value)
     {
@@ -45,7 +57,23 @@ public class PlayerMovement : MonoBehaviour
         moveInput = value.Get<Vector2>();
         Debug.Log(moveInput);
     }
+    
+    //nhan nut de nhan vat nhay len
+    void OnJump(InputValue value)
+    {
+        if (!isAlive) { return; }
+        if (!myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            return;
+        }
+        if (value.isPressed)
+        {
+            myRigidbody.velocity = new Vector2(0f, jumpSpeed);
+        }
 
+    
+    }
+    
     //animation run
     void Run()
     {
@@ -54,21 +82,6 @@ public class PlayerMovement : MonoBehaviour
 
         bool playerHasHorizotalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
         myAnimator.SetBool("isRunning", playerHasHorizotalSpeed);
-    }
-
-    //nhan nut de nhan vat nhay len
-    void OnJump(InputValue value)
-    {
-        if (!isAlive) { return; }
-        if (!myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")) )
-        {
-            return;
-        }
-        if (value.isPressed)
-        {
-            myRigidbody.velocity = new Vector2(0f, jumpSpeed);
-        }
-        
     }
 
     //lat nhan vat
@@ -103,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     //trang thai chet
     void Die()
     {
-        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")))
         {
             isAlive = false;
             myAnimator.SetTrigger("Dying");
